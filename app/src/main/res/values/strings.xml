@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">lotto_number_generator</string>
+    <string name="gen_lotto_number_btn_text">Generate</string>
+    <string name="number_default_value">1</string>
+    <string name="clear_data_text">Clear</string>
+    <string name="add_number_text">Add number</string>
+    <string name="already_choosed_number_warning_text">This is a number you already choosed</string>
+    <string name="number_selection_limit_warning_text">You can select numbers up to 5 numbers</string>
+    <string name="initializing_warning_text">Please initialize it.</string>
 </resources>

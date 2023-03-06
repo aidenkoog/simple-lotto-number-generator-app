@@ -7,20 +7,44 @@ android {
     namespace 'io.github.aidenkoog.android.lotto_number_generator'
     compileSdk 33
 
+    /* App signing key information */
+    signingConfigs {
+        aidenkoog {
+            storeFile file('../keystore/android_aidenkoog_appkey.jks')
+            storePassword "aidenkoog0000"
+            keyAlias "android_aidenkoog"
+            keyPassword "aidenkoog0000"
+        }
+    }
+
     defaultConfig {
         applicationId "io.github.aidenkoog.android.lotto_number_generator"
         minSdk 26
         targetSdk 33
-        versionCode 1
-        versionName "1.0"
+        /*
+         * -----------------------------------------------------------------------------------------
+         * major.minor.hotfix description
+         * 1) major (feature) : feature adding
+         * 2) minor (major) : critical modification
+         * 3) hotfix
+         * -----------------------------------------------------------------------------------------
+         */
+        versionCode 100
+        versionName "1.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
+            applicationIdSuffix ""
             minifyEnabled false
+            signingConfig signingConfigs.aidenkoog
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            applicationIdSuffix ""
+            signingConfig signingConfigs.aidenkoog
         }
     }
     compileOptions {
@@ -29,6 +53,21 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    // APK file's name
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def project = "AndroidLottoNumberGenerator"
+            def SEP = "_"
+            def buildType = variant.buildType.name
+            def versionName = variant.versionName
+            def versionCode = variant.versionCode
+            def date = new Date()
+            def formattedDate = date.format('yyyyMMdd_HHmm')
+            def newApkName = project + SEP + buildType.toUpperCase() + SEP + versionName + SEP + versionCode + SEP + formattedDate + ".apk"
+            outputFileName = new File(newApkName)
+        }
     }
 }
 
